@@ -83,35 +83,37 @@ function each(input, predicate){
 }
 
 function filter(list, predicate){
-
+  var outputArr = [];
+  each(list, function(list, index){
+    if(predicate(list[index])){
+      outputArr.push(list[index]);
+    }
+  })
+  return outputArr;
 }
 
 function contains(input, target){
-  each(input, function(input, i){
-    if(input[i] == target){
-      return true;
-    }else{
-      return false;
-    }
-  })
+  if(input.indexOf(target)!=-1){
+    return true;
+  }else{
+    return false;
+  }
 }
 
+//[1, 3, 2, 1, 5, 1, 3, 2, 11]
+
 function uniq(input){
-
-  var seen = [];
-  var outputArr = [];
-
-  each(input, function(input, index){
-
-    outputArr.push(input[index]);
-
-    each(outputArr, function(outputArr, index2){
-
-    })
-
-    console.log(outputArr);
-  });
-
+  each(input, function(input, i){
+    for(var j = i+1; j<input.length; j++){
+      //console.log(input[i]+' and '+input[j]);
+      if(input[i] == input[j]){
+        //console.log('erase' + input[j] + ' at index ' + j);
+        input.splice(j,1);
+      }
+      console.log(input);
+    }
+  })
+  return input;
 }
 
 function union(input){
