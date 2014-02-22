@@ -64,16 +64,17 @@ _.reduce([1, 2, 3], function(memo, num) { return memo*num }, 10);
 Underscore Union
 
 */
-
+_.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 
 
 /*
 
 My own underscore functions
+--Only works with arrays.
 
 */
 
-_.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
+
 
 function each(input, predicate){
   for(var i = 0; i<input.length; i++){
@@ -81,8 +82,18 @@ function each(input, predicate){
   }
 }
 
+function filter(list, predicate){
+
+}
+
 function contains(input, target){
-  each(input, )
+  each(input, function(input, i){
+    if(input[i] == target){
+      return true;
+    }else{
+      return false;
+    }
+  })
 }
 
 function uniq(input){
