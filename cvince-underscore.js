@@ -66,6 +66,14 @@ Underscore Union
 */
 _.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 
+//union takes a number of arrays as arguments, concats the arrays, and performs _.uniq on it.
+
+// result is concat'd to a single array [1, 2, 3, 4, 1, 3, 5, 7, 1]
+
+// result is uniq'd to [1, 2, 3, 4, 5, 7], _.uniq takes away duplicates from the list, and just returns the same values.
+
+// not sure if union is designed to handle nested arrays, or if flatten needs to apply before inputting as args.
+
 
 
 /*-------------------------------------
@@ -77,6 +85,43 @@ _.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 -------------------------------------*/
 
 var _vc = {};
+
+/*
+
+      MAP
+
+*/
+
+_vc.map = function (input, callback){
+
+  var results = [];
+
+  for (var property in input){
+    results.push(callback(input[property], property, input));
+  }
+
+  return results;
+}
+
+/*
+
+      REDUCE
+
+*/
+
+
+_vc.reduce = function(input, callback, start){
+
+  var result = start;
+
+  for(var i = 0; i<input.length; i++){
+    result = callback(result, input[i]);
+  }
+
+  return result;
+
+}
+
 
 /*
 
@@ -99,7 +144,7 @@ _vc.each = function (input, predicate){
 
 _vc.filter = function (list, predicate){
   var outputArr = [];
-  each(list, function(list, index){
+  _vc.each(list, function(list, index){
     if(predicate(list[index])){
       outputArr.push(list[index]);
     }
@@ -131,14 +176,13 @@ _vc.contains = function(input, target){
 */
 
 _vc.uniq = function(input){
-  each(input, function(input, i){
+  _vc.each(input, function(input, i){
     for(var j = i+1; j<input.length; j++){
       //console.log(input[i]+' and '+input[j]);
       if(input[i] == input[j]){
         //console.log('erase' + input[j] + ' at index ' + j);
         input.splice(j,1);
       }
-      console.log(input);
     }
   })
   return input;
@@ -183,13 +227,13 @@ _vc.flatten = function(input, shallow) {
 
       UNION
       direct dependencies: flatten, each, uniq
-      Sample Data: [[1, 3, 2], [1, 5, 1, 3], [2, 11]]
-      Sammple Data: [[1, 3, 2], [[1, 5, 1, 3], [2, 11]]]
+      Sample Data: [1, 3, 2], [1, 5, 1, 3], [2, 11]
 
 */
 
-_vc.union = function(input){
-  _vc.flatten(input)
+_vc.union = function(){
+  var outputArr = _vc.uniq(_vc.flatten(arguments, true));
+  return outputArr;
 }
 
 
