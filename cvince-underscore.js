@@ -156,8 +156,6 @@ _vc.uniq = function(input){
 
 var flattenRecurse = function(input, output) {
 
-    console.log(input);
-
   if(Array.isArray(input)){
     for(var i = 0; i<input.length; i++){
       flattenRecurse(input[i], output)
@@ -168,12 +166,19 @@ var flattenRecurse = function(input, output) {
 
 };
 
-
-_vc.flatten = function(input) {
+_vc.flatten = function(input, shallow) {
     var flatArr = [];
-    flattenRecurse(input, flatArr);
+    if(!shallow){
+      flattenRecurse(input, flatArr);
+    }else{
+      _vc.each(input, function(input, index){
+        flatArr = flatArr.concat(input[index]);
+      })
+    }
+
     return flatArr;
 };
+
 /*
 
       UNION
@@ -184,7 +189,7 @@ _vc.flatten = function(input) {
 */
 
 _vc.union = function(input){
-
+  _vc.flatten(input)
 }
 
 
