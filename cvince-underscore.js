@@ -82,15 +82,19 @@ Underscore Zip
 */
 _.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
 
-//zip takes n-number of seperate arrays, and maps the indices from each array to another
+//zip takes n-number of seperate arrays, and maps the indices from each array and populates all the common indices together in seperate arrays
 
-/*-------------------------------------
+// result is [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
+
+
+
+/*--------------------------------------------------
 
       By: Vincent Chan
-      My own underscore functions
-      --Some functions only works with arrays.
+      Underscore functions that I wrote myself
+      --Some functions only work with arrays.
 
--------------------------------------*/
+---------------------------------------------------*/
 
 var _vc = {};
 
@@ -139,10 +143,18 @@ _vc.reduce = function(input, callback, start){
 
 
 _vc.each = function (input, predicate){
-  for(var i = 0; i<input.length; i++){
-    predicate(input, i);
+  if (typeof input === 'object'){
+    for(var key in input){
+      predicate(input, key);
+    }
+  }else if(Array.isArray(input)){
+    for(var i = 0; i<input.length; i++){
+      predicate(input, i);
+    }
   }
 }
+
+
 
 /*
 
@@ -280,5 +292,30 @@ _vc.zip = function(input){
 
   })
   return outputArr;
+}
+
+/*
+
+      EXTEND
+      Sample Data: { 'name': 'fred' }, { 'employer': 'slate' }, { 'employer': 'slate2' }, { 'employer': 'slate3' }
+      Sample Data: { 'name': 'fred' }, { 'employer': 'slate', 'salary': '90k' }
+*/
+
+
+
+_vc.extend = function(obj){
+
+  var source = Array.prototype.slice.call(arguments, 1);
+
+  _vc.each(source, function(input, key){
+    if(input){
+      for(var prop in input[key]){
+        obj[prop] = input[key][prop]
+      }
+    }
+  })
+
+  return obj;
+
 }
 
