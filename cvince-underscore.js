@@ -311,11 +311,11 @@ _vc.pluck = function(obj, key){
 
   _vc.map(obj, function(input){
     outputArr.push(input[key]);
-  })
+  });
 
   return outputArr;
 
-}
+};
 
 /*--------------------------------------------------
 
@@ -445,7 +445,7 @@ Underscore Pick
 
 */
 
-_vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age')
+_vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age');
 
 //pick filters the input array by the keys provided by the 2nd...Nth arguments and returns a new object with key-value pairs of the selected keys
 //keys that are not within the object are ignored, and not passed into the returned object
