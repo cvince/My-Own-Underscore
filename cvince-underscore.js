@@ -75,6 +75,12 @@ _.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 // not sure if union is designed to handle nested arrays, or if flatten needs to apply before inputting as args.
 
 
+/*
+
+Underscore Zip
+
+*/
+_.zip()
 
 /*-------------------------------------
 
@@ -254,4 +260,24 @@ _vc.all = function(input, predicate){
   }
 }
 
+/*
 
+      ZIP
+      Sample Data: ['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]
+
+*/
+
+_vc.zip = function(input){
+  var args = arguments;
+  var outputArr = [];
+  _vc.each(args, function(args, i){
+
+    var innerArr = []
+    _vc.map(args, function(num) { innerArr.push(num[i]) })
+    outputArr[i] = innerArr;
+
+  })
+
+  return outputArr;
+
+}
