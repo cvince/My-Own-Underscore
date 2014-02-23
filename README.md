@@ -1,7 +1,7 @@
 My-Own-Underscore
 =================
 
-15 functional underscore methods that I rewrote for practice. *Some functions may only work with arrays., so don't go replacing your underscore library just yet! Oh, but it's also like 3x smaller than the current underscore lib.
+15 functional underscore methods that I rewrote for practice. Some functions may only work with arrays, so don't go replacing your underscore library just yet! It's also like 3x more concise than the current underscore functions.
 
 Functions include
 -----------------
