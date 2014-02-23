@@ -1,98 +1,10 @@
-
-/*
-
-Underscore Map
-
-*/
-
-_.map(list, iterator, [context]);
-
-//Map takes an input list, and applies a transformation to the input list based on a callback function, and produces a single new array.
-_.map([2, 3, 4], function(num){ return num*3; });
-
-//underscore does this:
-//[2*3, 3*3, 4*3];
-
-//Result is [6, 9, 12]
-
-//If the input list is an object, the iterator's arguments will be vaue, key, list.
-_.map({hello:2, my:3, name:4}, function(value, key){ return value*3; });
-//result [6, 9, 12]
-
-//Map also takes input strings!
-_.map(['hello', 'my', 'name'], function(num){ return num + num; });
-// result ['hellohello', 'mymy', 'namename']
-
-/*
-
-Underscore Reduce
-
-*/
-
-_.reduce(list, iterator, memo, [context]);
-
-//Reduce boils down a list into a single value based on an iterator function in the second argument.
-_.reduce([2, 3, 4], function(memo, num){ return memo + num; });
-//result is
-//  2
-//  2 + 3 = 5
-//  5 + 4 = 9
-
-// returned number is 9
-
-//With strings
-_.reduce(['hello', 'my', 'name'], function(memo, num) { return memo + num; });
-//  result is
-//  'hello'
-//  'hello'+'my'
-//  'hellomy'+'name'
-
-//  returned value is 'hellomyname'
-
-//With a memo
-_.reduce([1, 2, 3], function(memo, num) { return memo*num; }, 10);
-//  result is
-//  10
-//  10 + 1
-//  11 + 2
-//  13 + 3
-
-//  returned number is 16
-
-/*
-
-Underscore Union
-
-*/
-_.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
-
-//union takes a number of arrays as arguments, concats the arrays, and performs _.uniq on it.
-
-// result is concat'd to a single array [1, 2, 3, 4, 1, 3, 5, 7, 1]
-
-// result is uniq'd to [1, 2, 3, 4, 5, 7], _.uniq takes away duplicates from the list, and just returns the same values.
-
-// not sure if union is designed to handle nested arrays, or if flatten needs to apply before inputting as args.
-
-
-/*
-
-Underscore Zip
-
-*/
-_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
-
-//zip takes n-number of seperate arrays, and maps the indices from each array and populates all the common indices together in seperate arrays
-
-// result is [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
-
-
-
 /*--------------------------------------------------
 
       By: Vincent Chan
-      Underscore functions that I wrote myself
-      --Some functions only work with arrays.
+      Underscore functions that I wrote and
+      tested by myself.
+
+      Usage and explanations are below.
 
 ---------------------------------------------------*/
 
@@ -327,8 +239,6 @@ _vc.zip = function(input){
 
 */
 
-
-
 _vc.extend = function(obj){
 
   var source = Array.prototype.slice.call(arguments, 1);
@@ -349,9 +259,9 @@ _vc.extend = function(obj){
 
       PICK
       Sample Data: _vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age')
+      Sample Data: _vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age', '12345', 'eEEeeE')
 
 */
-
 
 _vc.pick = function(obj){
 
@@ -369,6 +279,13 @@ _vc.pick = function(obj){
 
 };
 
+/*
+
+      INVERT
+      Sample Data: {Moe: "Moses", Larry: "Louis", Curly: "Jerome"}
+
+*/
+
 _vc.invert = function(obj){
 
   var outputObj = {};
@@ -380,3 +297,188 @@ _vc.invert = function(obj){
   return outputObj;
 
 };
+
+/*
+
+      PLUCK
+      Sample Data: var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+
+*/
+
+_vc.pluck = function(obj, key){
+
+  var outputArr = [];
+
+  _vc.map(obj, function(input){
+    outputArr.push(input[key]);
+  })
+
+  return outputArr;
+
+}
+
+/*--------------------------------------------------
+
+      DESCRIPTIONS AND DEMONSTRATIONS
+
+---------------------------------------------------*/
+
+
+/*
+
+Underscore Map
+
+*/
+
+_vc.map(list, iterator, [context]);
+
+//Map takes an input list, and applies a transformation to the input list based on a callback function, and produces a single new array.
+_vc.map([2, 3, 4], function(num){ return num*3; });
+
+//underscore does this:
+//[2*3, 3*3, 4*3];
+
+// => result is [6, 9, 12]
+
+//If the input list is an object, the iterator's arguments will be vaue, key, list.
+_vc.map({hello:2, my:3, name:4}, function(value, key){ return value*3; });
+// => result is [6, 9, 12]
+
+//Map also takes input strings!
+_vc.map(['hello', 'my', 'name'], function(num){ return num + num; });
+// => result ['hellohello', 'mymy', 'namename']
+
+
+
+
+/*
+
+Underscore Reduce
+
+*/
+
+_vc.reduce(list, iterator, memo, [context]);
+
+//Reduce boils down a list into a single value based on an iterator function in the second argument.
+_vc.reduce([2, 3, 4], function(memo, num){ return memo + num; });
+//result is
+//  2
+//  2 + 3 = 5
+//  5 + 4 = 9
+
+// => returned number is 9
+
+//With strings
+_vc.reduce(['hello', 'my', 'name'], function(memo, num) { return memo + num; });
+//  result is
+//  'hello'
+//  'hello'+'my'
+//  'hellomy'+'name'
+
+// => returned value is 'hellomyname'
+
+//With a memo
+_vc.reduce([1, 2, 3], function(memo, num) { return memo*num; }, 10);
+//  result is
+//  10
+//  10 + 1
+//  11 + 2
+//  13 + 3
+
+// => returned number is 16
+
+
+
+
+/*
+
+Underscore Union
+
+*/
+
+_vc.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
+
+//union takes a number of arrays as arguments, concats the arrays, and performs _.uniq on it.
+
+// => result is concat'd to a single array [1, 2, 3, 4, 1, 3, 5, 7, 1]
+// => result is uniq'd to [1, 2, 3, 4, 5, 7], _.uniq takes away duplicates from the list, and just returns the same values.
+//not sure if union is designed to handle nested arrays, or if flatten needs to be applied before inputting as args.
+
+
+
+
+
+/*
+
+Underscore Zip
+
+*/
+
+_vc.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+
+//zip takes n-number of seperate arrays, and maps the indices from each array and populates all the common indices together in seperate arrays
+
+// => result is [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
+
+
+
+
+/*
+
+Underscore Extend
+
+*/
+
+_vc.extend({name: 'moe'}, {age: 50}, {salary: '90k'});
+
+//extend takes all the properties of source objects and adds it to the destination object.
+//If there are objects of the same key in the source and the destination, the destination will be updated with the source values.
+
+// => result is {name: "moe", age: 50, salary: "90k"}
+
+
+
+
+/*
+
+Underscore Pick
+
+*/
+
+_vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age')
+
+//pick filters the input array by the keys provided by the 2nd...Nth arguments and returns a new object with key-value pairs of the selected keys
+//keys that are not within the object are ignored, and not passed into the returned object
+
+// => result is {name: "moe", age: 50}
+
+
+
+
+/*
+
+Underscore Invert
+
+*/
+
+_vc.invert({Moe: "Moses", Larry: "Louis", Curly: "Jerome"});
+
+//invert swaps the key-value pairs within an object. Objects values must be string serializable for this to work, or keys won't generate.
+
+// => result is {Moses: "Moe", Louis: "Larry", Jerome: "Curly"}
+
+
+
+
+/*
+
+Underscore Pluck
+
+*/
+
+_vc.pluck([{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}], 'name');
+
+//pluck extracts values from an array of objects based on a provided key, and outputs those values in a new array.
+
+// => result is ["moe", "larry", "curly"]
+
