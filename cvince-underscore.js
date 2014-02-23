@@ -8,7 +8,7 @@ Underscore Map
 _.map(list, iterator, [context]);
 
 //Map takes an input list, and applies a transformation to the input list based on a callback function, and produces a single new array.
-_.map([2, 3, 4], function(num){ return num*3 });
+_.map([2, 3, 4], function(num){ return num*3; });
 
 //underscore does this:
 //[2*3, 3*3, 4*3];
@@ -16,11 +16,11 @@ _.map([2, 3, 4], function(num){ return num*3 });
 //Result is [6, 9, 12]
 
 //If the input list is an object, the iterator's arguments will be vaue, key, list.
-_.map({hello:2, my:3, name:4}, function(value, key){ return value*3 });
+_.map({hello:2, my:3, name:4}, function(value, key){ return value*3; });
 //result [6, 9, 12]
 
 //Map also takes input strings!
-_.map(['hello', 'my', 'name'], function(num){ return num + num });
+_.map(['hello', 'my', 'name'], function(num){ return num + num; });
 // result ['hellohello', 'mymy', 'namename']
 
 /*
@@ -32,7 +32,7 @@ Underscore Reduce
 _.reduce(list, iterator, memo, [context]);
 
 //Reduce boils down a list into a single value based on an iterator function in the second argument.
-_.reduce([2, 3, 4], function(memo, num){ return memo + num });
+_.reduce([2, 3, 4], function(memo, num){ return memo + num; });
 //result is
 //  2
 //  2 + 3 = 5
@@ -41,7 +41,7 @@ _.reduce([2, 3, 4], function(memo, num){ return memo + num });
 // returned number is 9
 
 //With strings
-_.reduce(['hello', 'my', 'name'], function(memo, num) { return memo + num });
+_.reduce(['hello', 'my', 'name'], function(memo, num) { return memo + num; });
 //  result is
 //  'hello'
 //  'hello'+'my'
@@ -50,7 +50,7 @@ _.reduce(['hello', 'my', 'name'], function(memo, num) { return memo + num });
 //  returned value is 'hellomyname'
 
 //With a memo
-_.reduce([1, 2, 3], function(memo, num) { return memo*num }, 10);
+_.reduce([1, 2, 3], function(memo, num) { return memo*num; }, 10);
 //  result is
 //  10
 //  10 + 1
@@ -113,7 +113,8 @@ _vc.map = function (input, callback){
   }
 
   return results;
-}
+
+};
 
 /*
 
@@ -132,7 +133,7 @@ _vc.reduce = function(input, callback, start){
 
   return result;
 
-}
+};
 
 
 /*
@@ -143,6 +144,7 @@ _vc.reduce = function(input, callback, start){
 
 
 _vc.each = function (input, predicate){
+
   if (typeof input === 'object'){
     for(var key in input){
       predicate(input, key);
@@ -152,7 +154,8 @@ _vc.each = function (input, predicate){
       predicate(input, i);
     }
   }
-}
+
+};
 
 
 
@@ -163,14 +166,18 @@ _vc.each = function (input, predicate){
 */
 
 _vc.filter = function (list, predicate){
+
   var outputArr = [];
+
   _vc.each(list, function(list, index){
     if(predicate(list[index])){
       outputArr.push(list[index]);
     }
-  })
+  });
+
   return outputArr;
-}
+
+};
 
 /*
 
@@ -179,12 +186,14 @@ _vc.filter = function (list, predicate){
 */
 
 _vc.contains = function(input, target){
+
   if(input.indexOf(target)!=-1){
     return true;
   }else{
     return false;
   }
-}
+
+};
 
 
 
@@ -196,6 +205,7 @@ _vc.contains = function(input, target){
 */
 
 _vc.uniq = function(input){
+
   _vc.each(input, function(input, i){
     for(var j = i+1; j<input.length; j++){
       //console.log(input[i]+' and '+input[j]);
@@ -204,9 +214,11 @@ _vc.uniq = function(input){
         input.splice(j,1);
       }
     }
-  })
+  });
+
   return input;
-}
+
+};
 
 
 
@@ -222,7 +234,7 @@ var flattenRecurse = function(input, output) {
 
   if(Array.isArray(input)){
     for(var i = 0; i<input.length; i++){
-      flattenRecurse(input[i], output)
+      flattenRecurse(input[i], output);
     }
   }else{
     output.push(input);
@@ -231,16 +243,19 @@ var flattenRecurse = function(input, output) {
 };
 
 _vc.flatten = function(input, shallow) {
+
     var flatArr = [];
+
     if(!shallow){
       flattenRecurse(input, flatArr);
     }else{
       _vc.each(input, function(input, index){
         flatArr = flatArr.concat(input[index]);
-      })
+      });
     }
 
     return flatArr;
+
 };
 
 /*
@@ -252,9 +267,11 @@ _vc.flatten = function(input, shallow) {
 */
 
 _vc.union = function(){
+
   var outputArr = _vc.uniq(_vc.flatten(arguments, true));
   return outputArr;
-}
+
+};
 
 
 /*
@@ -272,7 +289,8 @@ _vc.all = function(input, predicate){
       return false;
     }
   }
-}
+
+};
 
 /*
 
@@ -282,23 +300,31 @@ _vc.all = function(input, predicate){
 */
 
 _vc.zip = function(input){
+
   var args = arguments;
   var outputArr = [];
+
   _vc.each(args, function(args, i){
 
-    var innerArr = []
-    _vc.map(args, function(num) { innerArr.push(num[i]) })
+    var innerArr = [];
+
+    _vc.map(args, function(num) {
+      innerArr.push(num[i]);
+    });
+
     outputArr[i] = innerArr;
 
-  })
+  });
+
   return outputArr;
-}
+};
 
 /*
 
       EXTEND
       Sample Data: { 'name': 'fred' }, { 'employer': 'slate' }, { 'employer': 'slate2' }, { 'employer': 'slate3' }
       Sample Data: { 'name': 'fred' }, { 'employer': 'slate', 'salary': '90k' }
+
 */
 
 
@@ -310,12 +336,35 @@ _vc.extend = function(obj){
   _vc.each(source, function(input, key){
     if(input){
       for(var prop in input[key]){
-        obj[prop] = input[key][prop]
+        obj[prop] = input[key][prop];
       }
     }
-  })
+  });
 
   return obj;
 
-}
+};
+
+/*
+
+      PICK
+      Sample Data: _vc.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age')
+
+*/
+
+
+_vc.pick = function(obj){
+
+  var outputObj = {};
+
+  var pickedKeys = Array.prototype.slice.call(arguments, 1);
+  _vc.each(obj, function(obj, key){
+    _vc.each(pickedKeys, function(pickedKeys, i){
+      if (obj[pickedKeys[i]])
+        outputObj[pickedKeys[i]] = obj[pickedKeys[i]];
+    });
+  });
+
+  return outputObj;
+};
 
