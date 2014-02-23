@@ -80,13 +80,15 @@ _.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 Underscore Zip
 
 */
-_.zip()
+_.zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+
+//zip takes n-number of seperate arrays, and maps the indices from each array to another
 
 /*-------------------------------------
 
       By: Vincent Chan
       My own underscore functions
-      --Only works with arrays.
+      --Some functions only works with arrays.
 
 -------------------------------------*/
 
@@ -277,7 +279,6 @@ _vc.zip = function(input){
     outputArr[i] = innerArr;
 
   })
-
   return outputArr;
-
 }
+
