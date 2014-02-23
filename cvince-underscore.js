@@ -356,8 +356,8 @@ _vc.extend = function(obj){
 _vc.pick = function(obj){
 
   var outputObj = {};
-
   var pickedKeys = Array.prototype.slice.call(arguments, 1);
+
   _vc.each(obj, function(obj, key){
     _vc.each(pickedKeys, function(pickedKeys, i){
       if (obj[pickedKeys[i]])
@@ -366,5 +366,17 @@ _vc.pick = function(obj){
   });
 
   return outputObj;
+
 };
 
+_vc.invert = function(obj){
+
+  var outputObj = {};
+
+  _vc.each(obj, function(obj, key){
+    outputObj[obj[key]] = key;
+  });
+
+  return outputObj;
+
+};
