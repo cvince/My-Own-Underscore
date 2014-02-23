@@ -6,19 +6,19 @@ My-Own-Underscore
 Functions include
 -----------------
 
-_vc.map()
-_vc.reduce()
-_vc.each()
-_vc.filter()
-_vc.contains()
-_vc.uniq()
-_vc.flatten()
-_vc.union()
-_vc.all()
-_vc.zip()
-_vc.extend()
-_vc.pick()
-_vc.invert()\n
-_vc.pluck()
+_vc.map()  
+_vc.reduce()  
+_vc.each()  
+_vc.filter()  
+_vc.contains()  
+_vc.uniq()  
+_vc.flatten()  
+_vc.union()  
+_vc.all()  
+_vc.zip()  
+_vc.extend()  
+_vc.pick()  
+_vc.invert()  
+_vc.pluck()  
 
 
