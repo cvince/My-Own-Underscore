@@ -67,22 +67,37 @@ Underscore Union
 _.union([1, 2, 3], [4, 1, 3], [5, 7, 1]);
 
 
+
+/*-------------------------------------
+
+      By: Vincent Chan
+      My own underscore functions
+      --Only works with arrays.
+
+-------------------------------------*/
+
+var _vc = {};
+
 /*
 
-My own underscore functions
---Only works with arrays.
+      EACH
 
 */
 
 
-
-function each(input, predicate){
+_vc.each = function (input, predicate){
   for(var i = 0; i<input.length; i++){
     predicate(input, i);
   }
 }
 
-function filter(list, predicate){
+/*
+
+      FILTER
+
+*/
+
+_vc.filter = function (list, predicate){
   var outputArr = [];
   each(list, function(list, index){
     if(predicate(list[index])){
@@ -92,7 +107,13 @@ function filter(list, predicate){
   return outputArr;
 }
 
-function contains(input, target){
+/*
+
+      CONTAINS
+
+*/
+
+_vc.contains = function(input, target){
   if(input.indexOf(target)!=-1){
     return true;
   }else{
@@ -100,9 +121,16 @@ function contains(input, target){
   }
 }
 
-//[1, 3, 2, 1, 5, 1, 3, 2, 11]
 
-function uniq(input){
+
+/*
+
+      UNIQ
+      Sample Data: [1, 3, 2, 1, 5, 1, 3, 2, 11]
+
+*/
+
+_vc.uniq = function(input){
   each(input, function(input, i){
     for(var j = i+1; j<input.length; j++){
       //console.log(input[i]+' and '+input[j]);
@@ -116,27 +144,57 @@ function uniq(input){
   return input;
 }
 
-function union(input){
 
-  var outputArr = [];
 
-  for(var i = 0; i<input.length; i++){
-    for(var j = 0; j<input[i].length; j++){
-      if(input[i][j] != input[i+1][j]){
+/*
 
-      }
+      FLATTEN
+      Sample Data: [[1, 3, 2], [1, 5, 1, 3], [2, 11]]
+      Sammple Data: [[1, 3, 2], [[1, 5, 1, 3], [2, 11]]]
+
+*/
+
+var flattenRecurse = function(input, output) {
+
+    console.log(input);
+
+  if(Array.isArray(input)){
+    for(var i = 0; i<input.length; i++){
+      flattenRecurse(input[i], output)
     }
+  }else{
+    output.push(input);
   }
+
+};
+
+
+_vc.flatten = function(input) {
+    var flatArr = [];
+    flattenRecurse(input, flatArr);
+    return flatArr;
+};
+/*
+
+      UNION
+      direct dependencies: flatten, each, uniq
+      Sample Data: [[1, 3, 2], [1, 5, 1, 3], [2, 11]]
+      Sammple Data: [[1, 3, 2], [[1, 5, 1, 3], [2, 11]]]
+
+*/
+
+_vc.union = function(input){
+
 }
 
 
 /*
 
-Underscore All
+      ALL
 
 */
 
-function all(input, predicate){
+_vc.all = function(input, predicate){
 
   for(var i = 0; i< input.length; i++){
     if (predicate(input[i])){
