@@ -18,8 +18,7 @@ _vc.all()
 _vc.zip()
 _vc.extend()
 _vc.pick()
-_vc.invert()
-
+_vc.invert()\n
 _vc.pluck()
 
 
